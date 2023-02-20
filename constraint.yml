@@ -7,3 +7,19 @@ spec:
     kinds:
       - apiGroups: [""]
         kinds: ["Pod"]
+---
+apiVersion: constraints.gatekeeper.sh/v1beta1
+kind: K8sNamespace
+metadata:
+  name: enforce-namespace
+spec:
+  match:
+    kinds:
+      - apiGroups: [""]
+        kinds: ["*"]
+  parameters:
+    allowedNamespaces:
+      - kube-system
+      - default
+      - production
+      - staging
