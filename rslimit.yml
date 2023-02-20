@@ -14,10 +14,7 @@ spec:
         package limitsresources
         default limit = -1
         violation[{"msg": msg, "details": {}}] {
-          resource = {
-            "name": "resource1",
-            "limit": -1
-          }
-          limit = resource.limit
-          msg = sprintf("resource '%v' does not have a limit specification", [resource.name])
+          container := input.review.object.spec.containers[_]
+          container.resources.limits.memory <= limit
+          msg = sprintf("Container '%v' has memory limit '%v' which is less than the allowed limit '%v'", [container.name, container.resources.limits.memory, limit])
         }
