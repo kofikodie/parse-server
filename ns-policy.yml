@@ -1,50 +1,22 @@
 apiVersion: templates.gatekeeper.sh/v1beta1
 kind: ConstraintTemplate
 metadata:
-  name: k8spspsnamespace
+  name: k8spspnamespace
   namespace: default
 spec:
   crd:
     spec:
       names:
-        kind: K8sNamespace
+        kind: K8sPSPNamespace
   targets:
     - target: admission.k8s.gatekeeper.sh
       rego: |
-        package kubernetes.namespace
+        package k8spspnamespace
 
-        default allow = false
-
-        # Rule to allow namespace for resources in kube-system namespace
-        allow {
-            namespace := input.metadata.namespace
-            namespace == "kube-system"
-        }
-
-        # Rule to allow namespace for resources in default namespace
-        allow {
-            namespace := input.metadata.namespace
-            namespace == "default"
-        }
-
-        # Rule to allow namespace for resources in production namespace
-        allow {
-            namespace := input.metadata.namespace
-            namespace == "production"
-        }
-
-        # Rule to allow namespace for resources in staging namespace
-        allow {
-            namespace := input.metadata.namespace
-            namespace == "staging"
-        }
-
-        # Deny rule for resources without namespace
-        deny {
-            not input.metadata.namespace
-        }
-
-        # Deny rule for resources in a namespace other than allowed ones
-        deny {
-            not allow
+        violation[{"msg": msg, "details": {}}] {
+          input.review.object.metadata.namespace != "kube-system"
+          input.review.object.metadata.namespace != "default"
+          input.review.object.metadata.namespace != "production"
+          input.review.object.metadata.namespace != "staging"
+          msg = sprintf("Namespace '%v' is not allowed", [input.review.object.metadata.namespace])
         }
