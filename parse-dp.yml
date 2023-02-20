@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: parse-server
+  namespace: default
+  labels:
+    run: parse-server
+spec:
+  selector:
+    matchLabels:
+      app: parse-server
+  template:
+    metadata:
+      labels:
+        app: parse-server
+    spec:
+      containers:
+      - name: parse-server
+        image: parseplatform/parse-server:5.4.1
+        env:
+        - name: DATABASE_URI
+          value: "mongodb://mongo-0.mongo:27017,mongo-1.mongo:27017,mongo-2.mongo:27017/dev?replicaSet=rs0"
+        - name: APP_ID
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+          requests:
+            memory: "128Mi"
+            cpu: "500m"
