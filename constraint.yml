@@ -25,3 +25,16 @@ spec:
       - default
       - production
       - staging
+---
+apiVersion: constraints.gatekeeper.sh/v1beta1
+kind: K8sPSPImageTag
+metadata:
+  name: enforce-image-tag
+spec:
+  match:
+    kinds:
+      - apiGroups: [""]
+        kinds: ["*"]
+  parameters:
+    allowedTags:
+      - "*"
