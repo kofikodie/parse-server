@@ -16,14 +16,14 @@ spec:
     spec:
       containers:
       - name: parse-server
-        image: parseplatform/parse-server:5.4.1
+        image: anuphnu/parse-server-example:324bb853c5bdff47bdb821b7112cb07f75d898d3
         env:
-        - name: DATABASE_URI
-          value: "mongodb://mongo-0.mongo:27017,mongo-1.mongo:27017,mongo-2.mongo:27017/dev?replicaSet=rs0"
-        - name: APP_ID
-          value: my-app-id
-        - name: MASTER_KEY
-          value: my-master-key
+          - name: DATABASE_URI
+            value: "mongodb://mongo-0.mongo:27017,mongo-1.mongo:27017,mongo-2.mongo:27017/dev?replicaSet=rs0"
+          - name: APP_ID
+            value: "my-app-id"
+          - name: MASTER_KEY
+            value: "my-master-key"
         resources:
           limits:
             memory: "128Mi"
