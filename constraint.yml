@@ -2,6 +2,7 @@ apiVersion: constraints.gatekeeper.sh/v1beta1
 kind: K8sPSPLimitContainer
 metadata:
   name: psp-limit-container
+  namespace: default
 spec:
   match:
     kinds:
@@ -12,6 +13,7 @@ apiVersion: constraints.gatekeeper.sh/v1beta1
 kind: K8sNamespace
 metadata:
   name: enforce-namespace
+  namespace: default
 spec:
   match:
     kinds:
