@@ -10,7 +10,7 @@ spec:
         kinds: ["Pod"]
 ---
 apiVersion: constraints.gatekeeper.sh/v1beta1
-kind: K8sNamespace
+kind: K8sPSPNamespace
 metadata:
   name: enforce-namespace
   namespace: default

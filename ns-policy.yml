@@ -1,7 +1,7 @@
 apiVersion: templates.gatekeeper.sh/v1beta1
 kind: ConstraintTemplate
 metadata:
-  name: k8snamespace
+  name: k8spspsnamespace
   namespace: default
 spec:
   crd:
